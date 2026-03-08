@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Govind Tamewar — Media & Civic Journalism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --cream: #ede8da;
+    --red: #c0392b;
+    --gold: #b8943f;
+    --muted: #6b6355;
+    --rule: #c8bfaa;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 0.75rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 100;
+  }
+
+  .masthead-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .masthead-nav {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .masthead-nav a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .masthead-nav a:hover { color: var(--red); }
+
+  /* HERO */
+  .hero {
+    padding: 4rem 2.5rem 3rem;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: end;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-kicker::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--red);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-tagline {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 38ch;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    text-align: right;
+  }
+
+  .hero-meta-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-meta-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  /* SECTION DIVIDERS */
+  .section-rule {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .section-rule hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2.5rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    white-space: nowrap;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* ABOUT SECTION */
+  .about-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem 3rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #2a2520;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .about-text p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.8;
+    margin-right: 0.1em;
+    margin-top: 0.1em;
+    color: var(--red);
+  }
+
+  .about-sidebar {
+    border-left: 3px double var(--rule);
+    padding-left: 2rem;
+  }
+
+  .sidebar-item {
+    margin-bottom: 1.8rem;
+  }
+
+  .sidebar-item-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .sidebar-item-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+
+  .project-card {
+    padding: 2rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    transition: background 0.25s;
+    cursor: default;
+  }
+
+  .project-card:last-child { border-right: none; }
+
+  .project-card:hover { background: var(--cream); }
+
+  .project-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .project-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 0.15rem 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  .project-link {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .project-link:hover { color: var(--red); border-color: var(--red); }
+
+  /* EXPERIENCE */
+  .experience-list {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem 3rem;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-org {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.75rem;
+  }
+
+  .exp-desc {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  /* SKILLS */
+  .skills-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem 3rem;
+  }
+
+  .skills-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding: 2.2rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .skills-row:last-child { border-bottom: none; }
+
+  .skills-category {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    padding-top: 0.2rem;
+  }
+
+  .skills-category span {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .skills-category p {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 0.4rem;
+  }
+
+  .skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .skill-tag {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 0.4rem 1rem;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    cursor: default;
+  }
+
+  .skill-tag:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .skill-tag.highlight {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  @media (max-width: 900px) {
+    .skills-row { grid-template-columns: 1fr; gap: 1rem; }
+  }
+
+  /* CONTACT / FOOTER */
+  .contact-band {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 4rem 2.5rem;
+  }
+
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .contact-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-headline em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+
+  .contact-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--paper);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: color 0.2s;
+  }
+
+  .contact-link::after {
+    content: '↗';
+    font-family: serif;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .contact-link:hover { color: var(--gold); }
+
+  .footer-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: #666;
+    text-transform: uppercase;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero { animation: fadeUp 0.8s ease both; }
+  .about-grid { animation: fadeUp 0.8s 0.15s ease both; }
+  .projects-grid { animation: fadeUp 0.8s 0.25s ease both; }
+
+  /* PULLQUOTE */
+  .pullquote-band {
+    background: var(--cream);
+    border-top: 3px double var(--rule);
+    border-bottom: 3px double var(--rule);
+    padding: 2.5rem 2.5rem;
+    margin: 1rem 0;
+  }
+
+  .pullquote-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .pullquote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    line-height: 0.6;
+    color: var(--gold);
+    font-weight: 900;
+    opacity: 0.4;
+    user-select: none;
+  }
+
+  .pullquote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .pullquote-attr {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.75rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-meta { text-align: left; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-sidebar { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 2rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card { border-right: none; border-bottom: 1px solid var(--rule); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-inner { grid-template-columns: 1fr; }
+    .contact-links { align-items: flex-start; }
+    .masthead-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <span class="masthead-date">Media · Journalism · Civic Tech</span>
+  <nav>
+    <ul class="masthead-nav">
+      <li><a href="#about">Profile</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <span class="masthead-date">Chandigarh University · BA Journalism & Mass Communication</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-kicker">Portfolio — Media Studies & Civic Journalism</div>
+    <h1 class="hero-name">Govind<br><em>Tamewar</em></h1>
+    <p class="hero-tagline">Journalist, civic media entrepreneur, and content strategist. Building platforms that make public accountability accessible to everyone.</p>
+  </div>
+  <div class="hero-meta">
+    <div class="sidebar-item">
+      <div class="hero-meta-label">Based in</div>
+      <div class="hero-meta-value">Basmath, Maharashtra</div>
+    </div>
+    <div class="sidebar-item">
+      <div class="hero-meta-label">Degree</div>
+      <div class="hero-meta-value">BA Journalism &<br>Mass Communication</div>
+    </div>
+    <div class="sidebar-item">
+      <div class="hero-meta-label">Building</div>
+      <div class="hero-meta-value">civiclens.in</div>
+    </div>
+  </div>
+</section>
+
+<!-- PULLQUOTE -->
+<div class="pullquote-band">
+  <div class="pullquote-inner">
+    <span class="pullquote-mark">"</span>
+    <div>
+      <p class="pullquote-text">Civic journalism isn't a niche — it's the foundation. When people understand how decisions are made, they can hold decision-makers accountable.</p>
+      <p class="pullquote-attr">— Govind Tamewar</p>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-label">§ 01</span>
+    <h2 class="section-title">Profile</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Govind Tamewar is a Journalism and Mass Communication student at Chandigarh University, with roots in Basmath, Maharashtra. His work sits at the intersection of civic journalism, digital media, and public accountability — driven by the belief that quality reporting is a tool for social change.</p>
+      <p>As the founder of civiclens.in, Govind built and manages a student-led digital news platform covering national politics, geopolitics, and business. He directs editorial strategy and leads a cross-functional team to produce factual, data-driven journalism, driving platform growth through SEO and youth-focused reporting.</p>
+      <p>His journalism training is complemented by a prior Diploma in Pharmacy and hands-on NGO fieldwork through Malhar Foundation, giving him an unusually grounded perspective on research, community impact, and evidence-based storytelling.</p>
+    </div>
+    <aside class="about-sidebar">
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Education</div>
+        <div class="sidebar-item-value">BA Journalism & Mass Communication<br>Chandigarh University</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Based in</div>
+        <div class="sidebar-item-value">Maharashtra, India</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Specialisation</div>
+        <div class="sidebar-item-value">Digital Media<br>Digital Marketing<br>Public Relations<br>Journalism</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Languages</div>
+        <div class="sidebar-item-value">English · Hindi · Marathi</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Hobbies</div>
+        <div class="sidebar-item-value">Reading · Writing<br>Chess · Research</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div class="section-rule"><hr></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-label">§ 02</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">01 / 03</div>
+      <div class="project-tag">Civic Media</div>
+      <h3 class="project-title">civiclens.in</h3>
+      <p class="project-desc">Founded and managed a student-led digital news platform covering national politics, geopolitics, and business. Directed editorial strategy and led a cross-functional team producing factual, data-driven journalism, with growth driven by SEO and digital strategy.</p>
+      <a href="https://civiclens.in" target="_blank" class="project-link">Visit Platform ↗</a>
+    </div>
+    <div class="project-card">
+      <div class="project-num">02 / 03</div>
+      <div class="project-tag">Broadcast Journalism</div>
+      <h3 class="project-title">Global Campus Hub</h3>
+      <p class="project-desc">YouTube news channel producing weekly bilingual (Hindi–English) news bulletins. Served as rundown producer, copywriter, and on-ground reporter — writing accurate, engaging news scripts with professional on-camera delivery.</p>
+      <a href="#" class="project-link">View Channel</a>
+    </div>
+    <div class="project-card">
+      <div class="project-num">03 / 03</div>
+      <div class="project-tag">Certification</div>
+      <h3 class="project-title">CU Projects EXPO 2025</h3>
+      <p class="project-desc">Participated in Chandigarh University's Projects EXPO 2025, showcasing journalism and media research work in a competitive university-wide exhibition environment.</p>
+      <a href="https://drive.google.com/file/d/1QNBNKfldQ7aYusTaXcUI2ici9p7BC_j_/view?usp=sharing" target="_blank" class="project-link">View Certificate ↗</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-rule"><hr></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-label">§ 03</span>
+    <h2 class="section-title">Experience</h2>
+  </div>
+  <div class="experience-list">
+    <div class="exp-item">
+      <div class="exp-date">Jul – Aug 2025</div>
+      <div>
+        <div class="exp-role">Content Writer Intern</div>
+        <div class="exp-org">Pehchaan: The Street School</div>
+        <p class="exp-desc">Researched and wrote SEO-optimized articles on social issues, education, and inequality. Produced fact-checked, audience-focused content aligned with organisational guidelines. Collaborated with editors for accuracy and impactful storytelling, supporting outreach campaigns to amplify grassroots voices.</p>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">Jun 2024</div>
+      <div>
+        <div class="exp-role">Social Intern</div>
+        <div class="exp-org">Malhar Foundation · Latur, India</div>
+        <p class="exp-desc">Supported community outreach and social welfare activities. Conducted qualitative and quantitative research for project planning, working with NGO teams to develop sustainable, community-driven solutions. Contributed to data collection, reporting, and impact analysis.</p>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2023 – Present</div>
+      <div>
+        <div class="exp-role">Founder & Editor-in-Chief</div>
+        <div class="exp-org">civiclens.in</div>
+        <p class="exp-desc">Founded and manages a student-led digital news platform covering national politics, geopolitics, and business. Directs editorial strategy, leads a cross-functional team, and drives platform growth through SEO, digital strategy, and youth-focused, informed reporting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-rule"><hr></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-label">§ 04</span>
+    <h2 class="section-title">Skills & Competencies</h2>
+  </div>
+  <div class="skills-wrapper">
+    <div class="skills-row">
+      <div class="skills-category">
+        <span>Core Craft</span>
+        Journalism & Writing
+        <p>Foundation in reporting, editing, and long-form storytelling.</p>
+      </div>
+      <div class="skills-tags">
+        <span class="skill-tag highlight">News Writing</span>
+        <span class="skill-tag highlight">Long-form Features</span>
+        <span class="skill-tag">Fact-checking</span>
+        <span class="skill-tag">Political Reporting</span>
+        <span class="skill-tag">Reuters / BBC Style</span>
+        <span class="skill-tag">Editorial Judgment</span>
+        <span class="skill-tag">Investigative Research</span>
+      </div>
+    </div>
+    <div class="skills-row">
+      <div class="skills-category">
+        <span>Digital Media</span>
+        Content & Platforms
+        <p>Managing digital platforms and producing audience-first content.</p>
+      </div>
+      <div class="skills-tags">
+        <span class="skill-tag highlight">Digital Content Strategy</span>
+        <span class="skill-tag highlight">Social Media Management</span>
+        <span class="skill-tag">YouTube Production</span>
+        <span class="skill-tag">Bilingual Scripting</span>
+        <span class="skill-tag">Audience Development</span>
+        <span class="skill-tag">Newsletter Writing</span>
+        <span class="skill-tag">Platform Growth</span>
+      </div>
+    </div>
+    <div class="skills-row">
+      <div class="skills-category">
+        <span>Digital Marketing</span>
+        SEO & Growth
+        <p>Data-driven strategies to grow reach and drive engagement.</p>
+      </div>
+      <div class="skills-tags">
+        <span class="skill-tag highlight">SEO Writing</span>
+        <span class="skill-tag highlight">Yoast SEO</span>
+        <span class="skill-tag">SEMrush</span>
+        <span class="skill-tag">Keyword Research</span>
+        <span class="skill-tag">On-page Optimisation</span>
+        <span class="skill-tag">Content Marketing</span>
+        <span class="skill-tag">Campaign Copywriting</span>
+      </div>
+    </div>
+    <div class="skills-row">
+      <div class="skills-category">
+        <span>Public Relations</span>
+        Outreach & Communication
+        <p>Crafting narratives and amplifying voices for impact.</p>
+      </div>
+      <div class="skills-tags">
+        <span class="skill-tag highlight">PR Writing</span>
+        <span class="skill-tag highlight">Community Outreach</span>
+        <span class="skill-tag">NGO Communication</span>
+        <span class="skill-tag">Press Release Drafting</span>
+        <span class="skill-tag">Stakeholder Messaging</span>
+        <span class="skill-tag">Campaign Storytelling</span>
+        <span class="skill-tag">Impact Reporting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<footer id="contact" class="contact-band">
+  <div class="contact-inner">
+    <div>
+      <h2 class="contact-headline">Let's work<br><em>together.</em></h2>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:govindtamewar@gmail.com" class="contact-link">govindtamewar&#64;gmail.com</a>
+      <a href="https://civiclens.in" target="_blank" class="contact-link">civiclens.in</a>
+      <a href="https://linkedin.com" target="_blank" class="contact-link">LinkedIn</a>
+    </div>
+  </div>
+  <div class="contact-band" style="padding: 0 2.5rem;">
+    <div class="footer-bar">
+      <span class="footer-copy">© 2025 Govind Tamewar. All rights 
