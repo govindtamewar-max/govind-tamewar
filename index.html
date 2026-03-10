@@ -582,18 +582,79 @@
     margin-top: 0.75rem;
   }
 
-  /* RESPONSIVE */
+  /* ── RESPONSIVE ── */
+
+  /* Tablet: 768–900px */
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
+    .masthead { padding: 0.75rem 1.5rem; }
+    .masthead-nav { gap: 1.2rem; }
+    .hero { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 2rem; gap: 1.5rem; }
     .hero-meta { text-align: left; }
     .about-grid { grid-template-columns: 1fr; }
     .about-sidebar { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 2rem; }
-    .projects-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
     .project-card { border-right: none; border-bottom: 1px solid var(--rule); }
-    .skills-grid { grid-template-columns: repeat(2, 1fr); }
-    .contact-inner { grid-template-columns: 1fr; }
+    .skills-row { grid-template-columns: 1fr; gap: 1rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
     .contact-links { align-items: flex-start; }
+    .pullquote-inner { grid-template-columns: 1fr; gap: 0.5rem; }
+    .pullquote-mark { font-size: 4rem; line-height: 1; }
+  }
+
+  /* Mobile: up to 768px */
+  @media (max-width: 768px) {
+    .masthead { padding: 0.85rem 1.25rem; }
     .masthead-nav { display: none; }
+    .masthead-date { font-size: 0.6rem; }
+
+    .hero { grid-template-columns: 1fr; padding: 2rem 1.25rem 1.75rem; gap: 1.25rem; }
+    .hero-name { font-size: clamp(2.8rem, 10vw, 5rem); }
+    .hero-tagline { font-size: 0.95rem; line-height: 1.6; }
+    .hero-kicker { font-size: 0.62rem; }
+
+    .pullquote-band { padding: 1.75rem 1.25rem; }
+    .pullquote-inner { grid-template-columns: 1fr; gap: 0.25rem; }
+    .pullquote-mark { display: none; }
+    .pullquote-text { font-size: 1.05rem; }
+
+    section { padding: 2.5rem 1.25rem; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-sidebar {
+      border-left: none; border-top: 1px solid var(--rule);
+      padding-left: 0; padding-top: 1.75rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    }
+
+    .projects-grid { grid-template-columns: 1fr; gap: 0; }
+    .project-card { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.5rem 0; }
+    .project-card:first-child { padding-top: 0; }
+    .project-card:last-child { border-bottom: none; }
+
+    .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    .exp-date { font-size: 0.62rem; margin-bottom: 0.25rem; }
+
+    .skills-row { grid-template-columns: 1fr; gap: 0.75rem; }
+    .skills-tags { gap: 0.5rem; }
+    .skill-tag { font-size: 0.7rem; padding: 0.3rem 0.65rem; }
+
+    .contact-band { padding: 2.5rem 1.25rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .contact-links { align-items: flex-start; gap: 0.75rem; }
+    .contact-link { font-size: 0.7rem; }
+
+    .footer-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  }
+
+  /* Small phones: up to 480px */
+  @media (max-width: 480px) {
+    .hero { padding: 1.75rem 1rem 1.5rem; }
+    .hero-name { font-size: clamp(2.2rem, 11vw, 3.5rem); }
+    section { padding: 2rem 1rem; }
+    .about-sidebar { grid-template-columns: 1fr; }
+    .contact-band { padding: 2rem 1rem; }
+    .skill-tag { font-size: 0.68rem; padding: 0.28rem 0.6rem; }
+    .pullquote-band { padding: 1.5rem 1rem; }
   }
 </style>
 </head>
@@ -743,7 +804,7 @@
       </div>
     </div>
     <div class="exp-item">
-      <div class="exp-date">2023 – Present</div>
+      <div class="exp-date">2025 – Present</div>
       <div>
         <div class="exp-role">Founder & Editor-in-Chief</div>
         <div class="exp-org">CIVICLENS.IN</div>
@@ -769,8 +830,8 @@
         <p>Foundation in reporting, editing, and long-form storytelling.</p>
       </div>
       <div class="skills-tags">
-        <span class="skill-tag highlight">News Writing</span>
-        <span class="skill-tag highlight">Long-form Features</span>
+        <span class="skill-tag">News Writing</span>
+        <span class="skill-tag">Long-form Features</span>
         <span class="skill-tag">Fact-checking</span>
         <span class="skill-tag">Political Reporting</span>
         <span class="skill-tag">Reuters / BBC Style</span>
@@ -785,8 +846,8 @@
         <p>Managing digital platforms and producing audience-first content.</p>
       </div>
       <div class="skills-tags">
-        <span class="skill-tag highlight">Digital Content Strategy</span>
-        <span class="skill-tag highlight">Social Media Management</span>
+        <span class="skill-tag">Digital Content Strategy</span>
+        <span class="skill-tag">Social Media Management</span>
         <span class="skill-tag">YouTube Production</span>
         <span class="skill-tag">Bilingual Scripting</span>
         <span class="skill-tag">Audience Development</span>
@@ -801,8 +862,8 @@
         <p>Data-driven strategies to grow reach and drive engagement.</p>
       </div>
       <div class="skills-tags">
-        <span class="skill-tag highlight">SEO Writing</span>
-        <span class="skill-tag highlight">Yoast SEO</span>
+        <span class="skill-tag">SEO Writing</span>
+        <span class="skill-tag">Yoast SEO</span>
         <span class="skill-tag">SEMrush</span>
         <span class="skill-tag">Keyword Research</span>
         <span class="skill-tag">On-page Optimisation</span>
@@ -817,8 +878,8 @@
         <p>Crafting narratives and amplifying voices for impact.</p>
       </div>
       <div class="skills-tags">
-        <span class="skill-tag highlight">PR Writing</span>
-        <span class="skill-tag highlight">Community Outreach</span>
+        <span class="skill-tag">PR Writing</span>
+        <span class="skill-tag">Community Outreach</span>
         <span class="skill-tag">NGO Communication</span>
         <span class="skill-tag">Press Release Drafting</span>
         <span class="skill-tag">Stakeholder Messaging</span>
